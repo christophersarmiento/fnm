@@ -310,10 +310,6 @@ jobs:
           arch: ${{matrix.docker_platform}}
           distro: ubuntu18.04
 
-          # Not required, but speeds up builds by storing container images in
-          # a GitHub package registry.
-          githubToken: ${{ github.token }}
-
           env: |
             RUST_LOG: fnm=debug
 
