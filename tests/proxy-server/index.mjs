@@ -16,8 +16,13 @@ try {
 /** @type {Map<string, Promise<{ headers: Record<string, string>, body: ArrayBuffer }>>} */
 const cache = new Map()
 
-/** @type {string | null} */
-let lastAuth = null
+/**
+ * Authorization headers observed per test marker. Tests route fnm through a
+ * unique `/__authcheck/<marker>/...` prefix so parallel tests (which all share
+ * this single proxy) don't clobber each other's observations.
+ * @type {Map<string, string | null>}
+ */
+const authByMarker = new Map()
 
 /**
  * @param {object} opts
@@ -41,15 +46,30 @@ const download = async ({ pathname, filename, headersFilename }) => {
 }
 
 export const server = createServer((req, res) => {
-  const pathname = req.url ?? "/"
+  let pathname = req.url ?? "/"
 
-  if (pathname === "/__last_auth") {
+  const lastAuthMatch = pathname.match(/^\/__last_auth\/([^/]+)\/?$/)
+  if (lastAuthMatch) {
+    const marker = lastAuthMatch[1]
     res.writeHead(200, { "content-type": "application/json" })
-    res.end(JSON.stringify({ authorization: lastAuth }))
+    res.end(
+      JSON.stringify({
+        seen: authByMarker.has(marker),
+        authorization: authByMarker.get(marker) ?? null,
+      }),
+    )
     return
   }
 
-  lastAuth = req.headers["authorization"] ?? null
+  // Requests routed through a per-test marker prefix: record the auth header
+  // under that marker, then strip the prefix so the upstream path is the real
+  // nodejs.org/dist path (and shares the on-disk cache with normal requests).
+  const markerMatch = pathname.match(/^\/__authcheck\/([^/]+)(\/.*)$/)
+  if (markerMatch) {
+    const [, marker, realPath] = markerMatch
+    authByMarker.set(marker, req.headers["authorization"] ?? null)
+    pathname = realPath
+  }
 
   const hash = crypto
     .createHash("sha1")
