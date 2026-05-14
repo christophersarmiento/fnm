@@ -32,6 +32,17 @@ pub struct FnmConfig {
     #[clap(long, env = "FNM_MULTISHELL_PATH", hide_env_values = true, hide = true)]
     multishell_path: Option<std::path::PathBuf>,
 
+    /// Value sent verbatim as the `Authorization` header on requests to the
+    /// Node.js dist mirror. Use this for authenticated/private mirrors.
+    #[clap(
+        long,
+        env = "FNM_AUTH_HEADER",
+        global = true,
+        hide_env_values = true,
+        hide = true
+    )]
+    auth_header: Option<String>,
+
     /// The log level of fnm commands
     #[clap(
         long,
@@ -106,6 +117,7 @@ impl Default for FnmConfig {
             node_dist_mirror: Url::parse("https://nodejs.org/dist/").unwrap(),
             base_dir: None,
             multishell_path: None,
+            auth_header: None,
             log_level: LogLevel::Info,
             arch: Arch::default(),
             version_file_strategy: VersionFileStrategy::default(),
@@ -134,6 +146,10 @@ impl FnmConfig {
             None => None,
             Some(v) => Some(v.as_path()),
         }
+    }
+
+    pub fn auth_header(&self) -> Option<&str> {
+        self.auth_header.as_deref()
     }
 
     pub fn log_level(&self) -> LogLevel {

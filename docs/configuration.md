@@ -70,3 +70,16 @@ Then:
 
 - `fnm install` will install the latest satisfying Node.js 20.x version available in the Node.js dist server
 - `fnm use` will use the latest satisfying Node.js 20.x version available on your system, or prompt to install if no version matched.
+
+## Environment variables
+
+### `FNM_AUTH_HEADER`
+
+When set, the value is sent verbatim as the `Authorization` HTTP header on every request fnm makes to the Node.js dist mirror. Use this with private or authenticated mirrors.
+
+```sh
+export FNM_AUTH_HEADER="Bearer ghp_xxxxxxxxxxxxxxxx"
+fnm install 22
+```
+
+The value is forwarded as-is, so you control the auth scheme (`Bearer …`, `Basic …`, or any other token format your mirror expects). Set it in your shell profile or CI secret store — avoid echoing or committing it.

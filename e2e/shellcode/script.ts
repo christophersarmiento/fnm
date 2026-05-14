@@ -19,7 +19,7 @@ class Script {
     private readonly extraEnvVars: Record<string, string> = {}
   ) {}
   then(line: ScriptLine): Script {
-    return new Script(this.config, [...this.lines, line])
+    return new Script(this.config, [...this.lines, line], this.extraEnvVars)
   }
 
   takeSnapshot(shell: Pick<Shell, "name">): this {
