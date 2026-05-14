@@ -16,6 +16,9 @@ try {
 /** @type {Map<string, Promise<{ headers: Record<string, string>, body: ArrayBuffer }>>} */
 const cache = new Map()
 
+/** @type {string | null} */
+let lastAuth = null
+
 /**
  * @param {object} opts
  * @param {string} opts.pathname
@@ -39,6 +42,15 @@ const download = async ({ pathname, filename, headersFilename }) => {
 
 export const server = createServer((req, res) => {
   const pathname = req.url ?? "/"
+
+  if (pathname === "/__last_auth") {
+    res.writeHead(200, { "content-type": "application/json" })
+    res.end(JSON.stringify({ authorization: lastAuth }))
+    return
+  }
+
+  lastAuth = req.headers["authorization"] ?? null
+
   const hash = crypto
     .createHash("sha1")
     .update(pathname ?? "/")

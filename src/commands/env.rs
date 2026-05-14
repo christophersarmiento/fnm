@@ -94,7 +94,7 @@ impl Command for Env {
         let multishell_path = make_symlink(config)?;
         let base_dir = config.base_dir_with_default();
 
-        let env_vars = [
+        let mut env_vars = vec![
             ("FNM_MULTISHELL_PATH", multishell_path.to_str().unwrap()),
             (
                 "FNM_VERSION_FILE_STRATEGY",
@@ -111,11 +111,13 @@ impl Command for Env {
             ("FNM_ARCH", config.arch.as_str()),
         ];
 
+        if let Some(auth) = config.auth_header().filter(|s| !s.is_empty()) {
+            env_vars.push(("FNM_AUTH_HEADER", auth));
+        }
+
         if self.json {
-            println!(
-                "{}",
-                serde_json::to_string(&HashMap::from(env_vars)).unwrap()
-            );
+            let json_map: HashMap<_, _> = env_vars.iter().copied().collect();
+            println!("{}", serde_json::to_string(&json_map).unwrap());
             return Ok(());
         }
 
