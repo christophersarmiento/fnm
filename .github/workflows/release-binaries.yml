@@ -1,0 +1,154 @@
+name: release binaries
+on:
+  workflow_dispatch:
+  push:
+    tags: ["*"]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  RUST_VERSION: "1.88"
+
+jobs:
+  build_windows:
+    runs-on: windows-latest
+    name: "Release build for Windows"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hecrj/setup-rust-action@v2
+        with:
+          rust-version: ${{ env.RUST_VERSION }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Build release binary
+        run: cargo build --release
+        env:
+          RUSTFLAGS: "-C target-feature=+crt-static"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fnm-windows
+          path: target/release/fnm.exe
+
+  build_macos:
+    runs-on: macos-latest
+    name: "Release build for macOS"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hecrj/setup-rust-action@v2
+        with:
+          rust-version: ${{ env.RUST_VERSION }}
+          targets: x86_64-apple-darwin,aarch64-apple-darwin
+      - uses: Swatinem/rust-cache@v2
+      - name: Build release binary
+        run: |
+          cargo build --release --target x86_64-apple-darwin
+          strip target/x86_64-apple-darwin/release/fnm
+          cargo build --release --target aarch64-apple-darwin
+          strip target/aarch64-apple-darwin/release/fnm
+
+          mkdir -p target/release
+
+          # create a universal binary
+          lipo -create \
+            target/x86_64-apple-darwin/release/fnm \
+            target/aarch64-apple-darwin/release/fnm \
+            -output target/release/fnm
+        env:
+          LZMA_API_STATIC: "true"
+      - name: Strip binary from debug symbols
+        run: strip target/release/fnm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fnm-macos
+          path: target/release/fnm
+
+  build_linux:
+    name: "Build static Linux binary"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hecrj/setup-rust-action@v2
+        with:
+          rust-version: ${{ env.RUST_VERSION }}
+          targets: x86_64-unknown-linux-musl
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: static-linux-binary
+      - name: Install musl tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends musl-tools
+      - name: Build release binary
+        run: cargo build --release --target x86_64-unknown-linux-musl
+      - name: Strip binary from debug symbols
+        run: strip target/x86_64-unknown-linux-musl/release/fnm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fnm-linux
+          path: target/x86_64-unknown-linux-musl/release/fnm
+
+  build_arm:
+    name: "Build ARM binary"
+    strategy:
+      matrix:
+        include:
+          - arch: arm64
+            rust_target: aarch64-unknown-linux-musl
+          - arch: arm32
+            rust_target: armv7-unknown-linux-gnueabihf
+    runs-on: ubuntu-latest
+    env:
+      RUST_TARGET: ${{ matrix.rust_target }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hecrj/setup-rust-action@v2
+        with:
+          rust-version: ${{ env.RUST_VERSION }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: arm-binary-${{ matrix.arch }}
+      - name: "Download `cross` crate"
+        run: cargo install cross
+      - name: "Build release"
+        run: cross build --target $RUST_TARGET --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fnm-${{ matrix.arch }}
+          path: target/${{ env.RUST_TARGET }}/release/fnm
+
+  release:
+    name: "Create GitHub release"
+    runs-on: ubuntu-latest
+    needs: [build_windows, build_macos, build_linux, build_arm]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Package binaries into zips
+        run: |
+          mkdir -p dist
+          for platform in windows macos linux arm64 arm32; do
+            dir="artifacts/fnm-${platform}"
+            if [ "$platform" = "windows" ]; then
+              binary="fnm.exe"
+            else
+              binary="fnm"
+              chmod +x "$dir/$binary"
+            fi
+            (cd "$dir" && zip -q "../../dist/fnm-${platform}.zip" "$binary")
+          done
+          ls -la dist
+      - name: Create or update GitHub release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.zip --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$TAG" dist/*.zip \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$TAG" \
+              --generate-notes
+          fi
