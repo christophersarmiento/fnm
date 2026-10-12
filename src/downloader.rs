@@ -39,7 +39,7 @@ pub enum Error {
 fn filename_for_version(version: &Version, arch: Arch, ext: &str) -> String {
     format!(
         "node-{node_ver}-{platform}-{arch}.{ext}",
-        node_ver = &version,
+        node_ver = version,
         platform = crate::system_info::platform_name(),
         arch = arch,
         ext = ext

@@ -99,7 +99,7 @@ impl Cmd for Exec {
             .spawn()
             .map_err(|source| Error::CantSpawnProgram {
                 source,
-                binary: binary.to_string(),
+                binary: binary.clone(),
             })?
             .wait()
             .expect("Failed to grab exit code");
