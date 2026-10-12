@@ -6,9 +6,9 @@ A fast and simple Node.js manager
 Usage: fnm [OPTIONS] <COMMAND>
 
 Commands:
-  list-remote  List all remote Node.js versions [aliases: ls-remote]
-  list         List all locally installed Node.js versions [aliases: ls]
-  install      Install a new Node.js version [aliases: i]
+  list-remote  List all remote Node.js versions [alias: ls-remote]
+  list         List all locally installed Node.js versions [alias: ls]
+  install      Install a new Node.js version [alias: i]
   use          Change Node.js version
   env          Print and set up required environment variables for fnm
   completions  Print shell completions to stdout
@@ -17,7 +17,7 @@ Commands:
   default      Set a version as the default version or get the current default version
   current      Print the current Node.js version
   exec         Run a command within fnm context
-  uninstall    Uninstall a Node.js version [aliases: uni]
+  uninstall    Uninstall a Node.js version [alias: uni]
   help         Print this message or the help of the given subcommand(s)
 
 Options:
@@ -48,12 +48,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -107,11 +107,11 @@ Options:
       --sort <SORT>
           Version sorting order
 
-          [default: asc]
-
           Possible values:
           - desc: Sort versions in descending order (latest to earliest)
           - asc:  Sort versions in ascending order (earliest to latest)
+
+          [default: asc]
 
       --latest
           Only show the latest matching version
@@ -132,12 +132,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -195,12 +195,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -277,12 +277,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -350,12 +350,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -428,12 +428,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -496,12 +496,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -566,12 +566,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -633,12 +633,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -702,12 +702,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -765,12 +765,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -840,12 +840,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
@@ -909,12 +909,12 @@ Options:
       --version-file-strategy <VERSION_FILE_STRATEGY>
           A strategy for how to resolve the Node version. Used whenever `fnm use` or `fnm install` is called without a version, or when `--use-on-cd` is configured on evaluation
 
-          [env: FNM_VERSION_FILE_STRATEGY]
-          [default: local]
-
           Possible values:
           - local:     Use the local version of Node defined within the current directory
           - recursive: Use the version of Node defined within the current directory and all parent directories
+
+          [env: FNM_VERSION_FILE_STRATEGY]
+          [default: local]
 
       --corepack-enabled
           Enable corepack support for each new installation. This will make fnm call `corepack enable` on every Node.js installation. For more information about corepack see <https://nodejs.org/api/corepack.html>
