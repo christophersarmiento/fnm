@@ -3,10 +3,11 @@
     "target": "esnext",
     "moduleResolution": "NodeNext",
     "moduleDetection": "force",
-    "module": "esnext",
+    "module": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "jest"]
   }
 }

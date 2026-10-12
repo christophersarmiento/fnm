@@ -128,7 +128,7 @@ async function getCommandHelp(fnmPath, command) {
 
 /**
  * @param {string[]} args
- * @returns {import('execa').ExecaChildProcess<string>}
+ * @returns {import('execa').ResultPromise}
  */
 function run(fnmPath, args) {
   return execa(fnmPath, args, {

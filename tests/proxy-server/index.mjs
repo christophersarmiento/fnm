@@ -96,10 +96,10 @@ export const server = createServer((req, res) => {
         {
           retries: 5,
           maxTimeout: 5000,
-          onFailedAttempt: (error) => {
+          onFailedAttempt: ({ error, retriesLeft }) => {
             console.error(
               chalk.red(
-                `[proxy] ${chalk.bold("error")}: ${error.message}, retries left: ${error.retriesLeft}`,
+                `[proxy] ${chalk.bold("error")}: ${error.message}, retries left: ${retriesLeft}`,
               ),
             )
           },

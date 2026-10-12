@@ -9,8 +9,6 @@ module.exports = {
   testPathIgnorePatterns: ["/node_modules/", "/dist/", "/target/"],
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
-    "#ansi-styles": "ansi-styles/index.js",
-    "#supports-color": "supports-color/index.js",
   },
   transform: {
     // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`

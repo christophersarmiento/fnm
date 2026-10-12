@@ -1,5 +1,5 @@
 import { ScriptLine, Shell } from "./shells/types.js"
-import { execa, type ExecaChildProcess } from "execa"
+import { execa, type ResultPromise } from "execa"
 import testTmpDir from "./test-tmp-dir.js"
 import { Writable } from "node:stream"
 import { dedent } from "ts-dedent"
@@ -120,7 +120,7 @@ class Script {
   }
 }
 
-function streamOutputsAndBuffer(child: ExecaChildProcess) {
+function streamOutputsAndBuffer(child: ResultPromise) {
   const stdout: string[] = []
   const stderr: string[] = []
   const testName = expect.getState().currentTestName ?? "unknown"
@@ -130,7 +130,7 @@ function streamOutputsAndBuffer(child: ExecaChildProcess) {
   const stderrPrefix = chalk.magenta.dim(`[stderr] ${testPath}/${testName}: `)
 
   if (child.stdout) {
-    child.stdout.on("data", (data) => {
+    child.stdout.on("data", (data: Buffer) => {
       const lines = data.toString().trim().split(/\r?\n/)
       for (const line of lines) {
         process.stdout.write(`${stdoutPrefix}${line}\n`)
@@ -140,7 +140,7 @@ function streamOutputsAndBuffer(child: ExecaChildProcess) {
   }
 
   if (child.stderr) {
-    child.stderr.on("data", (data) => {
+    child.stderr.on("data", (data: Buffer) => {
       const lines = data.toString().trim().split(/\r?\n/)
       for (const line of lines) {
         process.stdout.write(`${stderrPrefix}${line}\n`)
