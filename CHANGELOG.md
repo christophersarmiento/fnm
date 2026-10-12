@@ -1,3 +1,15 @@
+## 1.40.1
+
+### Patch Changes
+
+- [`27ed8b3`](https://github.com/Schniz/fnm/commit/27ed8b3ec0c6e293346e1fd7fec540e9ed329ef8) Thanks [@christophersarmiento](https://github.com/christophersarmiento)! - Update the Rust toolchain to 1.99.0 and the development Node.js version to 26.11.1
+
+- [`54cd09c`](https://github.com/Schniz/fnm/commit/54cd09ceae25e8d8a6e13a3a343e61a1d82820b1) Thanks [@christophersarmiento](https://github.com/christophersarmiento)! - Update pnpm to 12.11.2 and all npm development dependencies to their latest versions
+
+- [`d67ffe1`](https://github.com/Schniz/fnm/commit/d67ffe1b268d0d0c8f0bb1ef7c5ef30d2162a5cd) Thanks [@christophersarmiento](https://github.com/christophersarmiento)! - Migrate the end-to-end test suite from Jest to Vitest
+
+- [`ba8600d`](https://github.com/Schniz/fnm/commit/ba8600dafb6ad6e9a0bf5eea828bae640f1f77c9) Thanks [@christophersarmiento](https://github.com/christophersarmiento)! - Update all Rust dependencies to their latest versions
+
 ## 1.31.0 (2022-02-16)
 
 ## 1.40.0
