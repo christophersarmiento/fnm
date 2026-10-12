@@ -9,43 +9,44 @@ repository = "https://github.com/Schniz/fnm"
 description = "Fast and simple Node.js version manager"
 
 [dependencies]
-serde = { version = "1.0.203", features = ["derive"] }
-clap = { version = "4.5.4", features = ["derive", "env"] }
-serde_json = "1.0.117"
-chrono = { version = "0.4.38", features = ["serde", "now"], default-features = false }
-tar = "0.4.40"
+serde = { version = "1.0.229", features = ["derive"] }
+clap = { version = "4.6.7", features = ["derive", "env"] }
+serde_json = "1.0.154"
+chrono = { version = "0.4.45", features = ["serde", "now"], default-features = false }
+tar = "0.4.46"
 xz2 = "0.1.7"
-node-semver = "2.1.0"
-etcetera = "0.8.0"
-colored = "2.1.0"
-zip = "2.1.0"
-tempfile = "3.10.1"
-fastrand = "2.1.1"
-indoc = "2.0.5"
-log = "0.4.21"
-env_logger = "0.11.3"
-encoding_rs_io = "0.1.7"
-reqwest = { version = "0.12.4", features = ["blocking", "json", "rustls-tls", "rustls-tls-native-roots", "brotli"], default-features = false }
-url = "2.5.0"
-sysinfo = "0.30.12"
-thiserror = "1.0.61"
-clap_complete = "4.5.2"
-anyhow = "1.0.86"
-indicatif = { version = "0.17.8", features = ["improved_unicode"] }
-flate2 = "1.0.30"
-miette = { version = "7.2.0", features = ["fancy"] }
+node-semver = "2.2.0"
+etcetera = "0.11.0"
+colored = "3.1.1"
+zip = "9.0.2"
+tempfile = "3.27.0"
+fastrand = "2.5.0"
+indoc = "2.0.8"
+log = "0.4.34"
+env_logger = "0.11.11"
+encoding_rs_io = "0.1.8"
+reqwest = { version = "0.13.5", features = ["blocking", "json", "rustls-no-provider", "brotli"], default-features = false }
+url = "2.5.8"
+sysinfo = "0.39.6"
+thiserror = "2.0.21"
+clap_complete = "4.6.11"
+anyhow = "1.0.104"
+indicatif = { version = "0.18.6", features = ["improved_unicode"] }
+flate2 = "1.1.10"
+rustls = { version = "0.23.45", default-features = false, features = ["ring", "std", "tls12"] }
+miette = { version = "7.6.0", features = ["fancy"] }
 
 [dev-dependencies]
-pretty_assertions = "1.4.0"
-duct = "0.13.7"
-test-log = "0.2.16"
-http = "1.1.0"
+pretty_assertions = "1.4.1"
+duct = "1.1.2"
+test-log = "0.2.21"
+http = "1.5.0"
 
 [build-dependencies]
-embed-resource = "2.4.2"
+embed-resource = "3.0.12"
 
 [target.'cfg(windows)'.dependencies]
-csv = "1.3.0"
-junction = "1.1.0"
+csv = "1.4.0"
+junction = "2.1.0"
 
 [features]

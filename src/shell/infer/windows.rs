@@ -2,14 +2,17 @@
 
 use crate::shell::Shell;
 use log::{debug, warn};
-use sysinfo::{ProcessRefreshKind, System, UpdateKind};
+use sysinfo::{ProcessRefreshKind, ProcessesToUpdate, System, UpdateKind};
 
 pub fn infer_shell() -> Option<Box<dyn Shell>> {
     let mut system = System::new();
     let mut current_pid = sysinfo::get_current_pid().ok();
 
-    system
-        .refresh_processes_specifics(ProcessRefreshKind::new().with_exe(UpdateKind::OnlyIfNotSet));
+    system.refresh_processes_specifics(
+        ProcessesToUpdate::All,
+        true,
+        ProcessRefreshKind::nothing().with_exe(UpdateKind::OnlyIfNotSet),
+    );
 
     while let Some(pid) = current_pid {
         if let Some(process) = system.process(pid) {
@@ -19,12 +22,12 @@ pub fn infer_shell() -> Option<Box<dyn Shell>> {
                 .exe()
                 .and_then(|x| {
                     tap_none(x.file_stem(), || {
-                        warn!("failed to get file stem from {:?}", x);
+                        warn!("failed to get file stem from {}", x.display());
                     })
                 })
                 .and_then(|x| {
                     tap_none(x.to_str(), || {
-                        warn!("failed to convert file stem to string: {:?}", x);
+                        warn!("failed to convert file stem to string: {}", x.display());
                     })
                 })
                 .map(str::to_lowercase);

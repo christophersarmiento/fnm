@@ -11,6 +11,10 @@ pub struct Error(#[from] reqwest::Error);
 pub type Response = reqwest::blocking::Response;
 
 pub fn get(url: impl IntoUrl, auth_header: Option<&str>) -> Result<Response, Error> {
+    // reqwest is built without a default crypto provider to avoid bundling aws-lc-rs,
+    // so we install the smaller `ring` provider. This fails harmlessly if already installed.
+    let _ = rustls::crypto::ring::default_provider().install_default();
+
     let mut req = Client::new()
         .get(url)
         // Some sites require a user agent.

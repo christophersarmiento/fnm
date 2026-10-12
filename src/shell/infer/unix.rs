@@ -24,7 +24,7 @@ pub fn infer_shell() -> Option<Box<dyn Shell>> {
 
         let process_info = get_process_info(current_pid)
             .map_err(|err| {
-                debug!("{}", err);
+                debug!("{err}");
                 err
             })
             .ok()?;
