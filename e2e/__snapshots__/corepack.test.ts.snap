@@ -1,26 +1,26 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Bash installs corepack: Bash 1`] = `
+exports[`Bash > installs corepack > Bash 1`] = `
 "set -e
 eval "$(fnm env --corepack-enabled)"
 fnm install 18
 fnm exec --using=18 node test-pnpm-corepack.js"
 `;
 
-exports[`Fish installs corepack: Fish 1`] = `
+exports[`Fish > installs corepack > Fish 1`] = `
 "fnm env --corepack-enabled | source
 fnm install 18
 fnm exec --using=18 node test-pnpm-corepack.js"
 `;
 
-exports[`PowerShell installs corepack: PowerShell 1`] = `
+exports[`PowerShell > installs corepack > PowerShell 1`] = `
 "$ErrorActionPreference = "Stop"
 fnm env --corepack-enabled | Out-String | Invoke-Expression
 fnm install 18
 fnm exec --using=18 node test-pnpm-corepack.js"
 `;
 
-exports[`Zsh installs corepack: Zsh 1`] = `
+exports[`Zsh > installs corepack > Zsh 1`] = `
 "set -e
 eval "$(fnm env --corepack-enabled)"
 fnm install 18

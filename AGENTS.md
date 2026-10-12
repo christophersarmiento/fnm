@@ -23,8 +23,9 @@ E2E tests validate real-shell user behavior (`fnm env`, `fnm use`, PATH updates,
 - Shell coverage behavior: `e2e/describe.ts`.
 - Examples: `e2e/basic.test.ts`, `e2e/use-on-cd.test.ts`, `e2e/exec.test.ts`, `e2e/corepack.test.ts`, `e2e/repros/issue-1527.test.ts`.
 
-- Run one file: `pnpm test -- e2e/repros/issue-1527.test.ts`
-- Run all e2e: `pnpm test -- e2e`
+- Run one file: `pnpm test e2e/repros/issue-1527.test.ts` (do not add `--`: vitest then ignores the filter)
+- Run all e2e: `pnpm test`
+- Type-check: `pnpm typecheck`
 
 ## Features, Bugfixes and Changes
 

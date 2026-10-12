@@ -8,7 +8,8 @@
   "packageManager": "pnpm@12.11.2",
   "license": "GPLv3",
   "scripts": {
-    "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "version:prepare": "changeset version && ./.ci/prepare-version.js",
     "generate-command-docs": "./.ci/print-command-docs.js"
   },
@@ -24,14 +25,11 @@
   "devDependencies": {
     "@changesets/changelog-github": "1.0.1",
     "@changesets/cli": "3.0.3",
-    "@types/jest": "^30.0.0",
     "@types/node": "^26.6.5",
     "@types/shell-escape": "^0.2.3",
     "chalk": "^6.0.1",
     "cmd-ts": "0.15.0",
-    "cross-env": "^10.1.0",
     "execa": "10.1.0",
-    "jest": "^30.5.2",
     "lerna-changelog": "2.2.0",
     "node-fetch": "^3.3.2",
     "p-retry": "^8.0.1",
@@ -41,8 +39,9 @@
     "svg-term-cli": "2.1.1",
     "toml": "5.0.0",
     "ts-dedent": "^2.3.0",
-    "ts-jest": "^29.4.14",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3",
     "which": "^7.0.0",
     "zod": "^4.6.5"
   },
